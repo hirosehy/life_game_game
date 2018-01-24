@@ -1,0 +1,40 @@
+*{
+  padding: 0;
+  margin: 0;
+}
+table#field{
+	margin: 5px;
+	border: 1px solid;
+	border-collapse: separate;
+	border-spacing : 0 0;
+}
+table#field td{
+	height: 5px;
+	width: 5px;
+	border: none;
+}
+canvas#field{
+	width: 500px;
+	height: 500px;
+	border: solid 1px;
+}
+#object li{
+	width: 120px;
+	height: 140px;
+	margin-right: 10px;
+	border: solid 1px;
+	user-select: none;
+	display: inline-block;
+	text-align: center;
+}
+#object li img{
+	margin-right: auto;
+	margin-left: auto;
+	display: block;
+}
+#object { 
+	float: left;
+}
+.small_font {
+	font-size: 12px;
+}

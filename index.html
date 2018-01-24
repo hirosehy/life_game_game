@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<title>ライフゲームゲーム</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script type="text/javascript" src="/assets/life_game_ui.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+	<link rel="stylesheet" type="text/css" href="/assets/style.css">
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+</head>
+<body>
+	<form id="start">
+		<input type="submit" id="start" value="スタート">
+		<a href="about.html">Life Survivalとは？</a>
+	</form>
+	<table id="field">
+	</table>
+	<div id="panel"></div>
+
+	<script>
+		$(function(){
+			var socket = io.connect();
+			// emit:　イベントを発信している
+			// on:イベントを待ち受けている
+			$('#start').submit(function( e ){
+				e.preventDefault();
+				socket.emit('start_from_client',"1");
+				$("input#start").remove();
+				$("#start").append(
+					"<p>マッチング中しばらくお待ちください...</p><br><br>"
+				);
+
+			});
+
+			socket.on('user_number', function( data ) {
+				user_number = data;
+			});
+
+			//テーブル作成
+			socket.on('start_from_server', function( data ){
+				make_table();
+				console.log("スタート");
+			});
+
+
+		  toastr.options.timeOut = 3000; // 3秒
+			toastr.options = {
+			  "closeButton": true,
+			  "debug": false,
+			  "newestOnTop": false,
+			  "progressBar": false,
+			  "positionClass": "toast-bottom-right",
+			  "preventDuplicates": false,
+			  "showDuration": "300",
+			  "hideDuration": "1000",
+			  "timeOut": "5000",
+			  "extendedTimeOut": "1000",
+			  "showEasing": "swing",
+			  "hideEasing": "linear",
+			  "showMethod": "fadeIn",
+			  "hideMethod": "fadeOut"
+			}
+
+
+
+		});
+	</script>
+
+
+
+</body>
+</html>
